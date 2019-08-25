@@ -1,0 +1,65 @@
+.d3-tensor-graph-node {
+  stroke: #94949a;
+  stroke-width: 1;
+  fill: #fff;
+}
+
+.d3-tensor-graph-node.d3-tensor-graph-module {
+  fill: #d9d9e0;
+}
+
+.d3-tensor-graph-node.selected {
+  stroke: #ed6d00;
+  stroke-width: 1.5;
+  /*fill: #ffdcc8;*/
+}
+
+.d3-tensor-graph-node.d3-tensor-graph-module.selected {
+  fill: #ffdcc8;
+}
+
+.d3-tensor-graph-node.d3-tensor-graph-name-scope,
+.d3-tensor-graph-node.d3-tensor-graph-name-scope.selected {
+  fill: #f3f3f5;
+  stroke-width: 0;
+}
+
+.d3-tensor-graph-node text {
+  stroke-width: 0;
+  cursor: default;
+}
+
+.d3-tensor-graph-node.selected text {
+  stroke-width: 0;
+  fill: #ed6d00;
+  cursor: default;
+}
+
+#arrow {
+  fill: #a6a6a6;
+}
+
+#arrow-hover {
+  fill: #ed6d00;
+}
+
+.d3-tensor-graph-edge {
+  fill: none;
+  stroke-width: 1;
+  stroke: #a6a6a6;
+  marker-end: url(#arrow);
+}
+
+.d3-tensor-graph-edge.selected {
+  fill: none;
+  stroke-width: 1.5;
+  /*stroke: #6d68c4;*/
+  stroke: #ed6d00;
+  marker-end: url(#arrow-hover);
+}
+
+.d3-tensor-graph-node-label {
+  font-family: sans-serif;
+  font-size: 11px;
+  fill: #66666b;
+}

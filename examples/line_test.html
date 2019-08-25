@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="../src/d3-tf-graph.js" ></script>
+    <style>
+      svg {
+        margin: 10px;
+      }
+    </style>
+  </head>
+<body>
+
+  <script>
+
+    var nodes = [
+      // 0, 1, 2
+      new Node(20, 20), new Node(80, 20), new Node(140, 20),
+      // 3, 4
+      new Node(20, 80), new Node(140, 80),
+      // 5, 6, 7
+      new Node(20, 140), new Node(80, 140), new Node(140, 140),
+    ];
+
+    var edges = [
+      new Edge(nodes[0].get_anchor('east'), nodes[7].get_anchor('west')),
+      new Edge(nodes[7].get_anchor('west'), nodes[0].get_anchor('east')),
+      new Edge(nodes[7].get_anchor('north'), nodes[0].get_anchor('south')),
+      new Edge(nodes[0].get_anchor('south'), nodes[7].get_anchor('north')),
+
+      new Edge(nodes[5].get_anchor('east'), nodes[2].get_anchor('west')),
+      new Edge(nodes[2].get_anchor('west'), nodes[5].get_anchor('east')),
+      new Edge(nodes[5].get_anchor('north'), nodes[2].get_anchor('south')),
+      new Edge(nodes[2].get_anchor('south'), nodes[5].get_anchor('north')),
+
+      new Edge(nodes[0].get_anchor('east'), nodes[7].get_anchor('north')),
+      new Edge(nodes[7].get_anchor('north'), nodes[0].get_anchor('east')),
+      new Edge(nodes[0].get_anchor('south'), nodes[7].get_anchor('west')),
+      new Edge(nodes[7].get_anchor('west'), nodes[0].get_anchor('south')),
+
+      new Edge(nodes[5].get_anchor('north'), nodes[2].get_anchor('west')),
+      new Edge(nodes[2].get_anchor('west'), nodes[5].get_anchor('north')),
+      new Edge(nodes[5].get_anchor('east'), nodes[2].get_anchor('south')),
+      new Edge(nodes[2].get_anchor('south'), nodes[5].get_anchor('east')),
+
+      new Edge(nodes[3].get_anchor('east'), nodes[4].get_anchor('west')),
+      new Edge(nodes[4].get_anchor('west'), nodes[3].get_anchor('east')),
+      new Edge(nodes[3].get_anchor('north'), nodes[4].get_anchor('north')),
+      new Edge(nodes[4].get_anchor('south'), nodes[3].get_anchor('south')),
+
+      new Edge(nodes[6].get_anchor('north'), nodes[1].get_anchor('south')),
+      new Edge(nodes[1].get_anchor('south'), nodes[6].get_anchor('north')),
+      new Edge(nodes[6].get_anchor('east'), nodes[1].get_anchor('east')),
+      new Edge(nodes[1].get_anchor('west'), nodes[6].get_anchor('west'))
+
+      //new Edge(nodes[6].get_anchor('east'), nodes[1].get_anchor('west')),
+      //new Edge(nodes[1].get_anchor('west'), nodes[6].get_anchor('east'))
+    ];
+
+    for (var i=0; i<edges.length; i++) {
+      var svg = d3.select("body").append("svg")
+        .attr("width", 160)
+        .attr("height", 160);
+      svg.append("rect")
+        .attr("rx", 8)
+        .attr("ry", 8)
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 160)
+        .attr("height", 160)
+        .style("fill", '#eee');
+
+      arrow_glyph(svg);
+
+      var edge = edges[i];
+      edge.start_anchor.node.draw(svg)
+      edge.end_anchor.node.draw(svg)
+      edge.draw(svg)
+    }
+
+  </script>
+</body>
+</html>

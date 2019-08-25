@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="../node_modules/d3-json-controller/build/d3-json-controller.js"></script>
+    <script src="../build/d3-tensor-graph.js" ></script>
+    <link rel="stylesheet" href="../build/d3-tensor-graph.css"/>
+    <style>
+      svg {
+        margin: 10px;
+      }
+    </style>
+  </head>
+<body>
+  <div id="caption1"></div>
+  <div id="graph1"></div>
+  <script>
+    d3.json('data/stack_memory.json', function(data){
+      var controller = d3.JSONController(data)
+      controller.goto(0, 'nodes')
+
+      var caption = controller.caption(d3.select('#caption1'))
+      controller.registerListener(caption.update.bind(caption), '$..description')
+
+      var graph = d3.tensorGraph(d3.select('#graph1'), controller.getPath('$'))
+      controller.registerListener(graph.update.bind(graph), '$.nodes.*')
+    });
+  </script>
+</body>
+</html>

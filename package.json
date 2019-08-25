@@ -1,0 +1,43 @@
+{
+  "name": "d3-tensor-graph",
+  "version": "0.0.1",
+  "description": "A D3 plugin to visualize computation graphs that deal with tensors",
+  "keywords": [
+    "d3",
+    "d3-module"
+  ],
+  "license": "Apache-2.0",
+  "main": "build/d3-tensor-graph.js",
+  "jsnext:main": "index",
+  "homepage": "https://github.com/narphorium/d3-tensor-graph",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/narphorium/d3-tensor-graph.git"
+  },
+  "scripts": {
+    "pretest": "rm -rf build && mkdir build && rollup -c",
+    "test": "tape 'test/**/*-test.js'",
+    "prepare": "npm run test && uglifyjs build/d3-tensor-graph.js -c -m -o build/d3-tensor-graph.min.js && uglifycss src/tensor-graph.css --output build/d3-tensor-graph.css",
+    "postpublish": "zip -j build/d3-tensor-graph.zip -- LICENSE README.md build/d3-tensor-graph.js build/d3-tensor-graph.min.js build/d3-tensor-graph.css"
+  },
+  "dependencies": {
+    "d3-json-controller": "0.0.1",
+    "d3-selection": "^1.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "rollup": "^1.15.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-eslint": "^6.0.0",
+    "rollup-plugin-node-resolve": "^5.0.1",
+    "tape": "4",
+    "uglify-es": "3",
+    "uglifycss": "0.0.29"
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "nodes": [{
+    "name": "memory",
+    "x": 260,
+    "y": 140,
+    "op": "tf.name_scope",
+    "width": 240,
+    "height": 270,
+    "anchors": [],
+    "inputs": {}
+  },{
+    "name": "prev_write_strengths",
+    "x": 60,
+    "y": 40,
+    "label": {
+      "name": "write strengths",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+    "inputs": {}
+  },{
+    "name": "previous_values",
+    "x": 60,
+    "y": 100,
+    "label": {
+      "name": "memory values",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+    "inputs": {}
+  },{
+    "name": "values",
+    "x": 60,
+    "y": 150,
+    "label": {
+      "name": "inputs",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+    "inputs": {}
+  },{
+    "name": "pop_strengths",
+    "x": 60,
+    "y": 200,
+    "label": {
+      "name": "pop strengths",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+    "inputs": {}
+  },{
+    "name": "prev_read_strengths",
+    "x": 60,
+    "y": 250,
+    "label": {
+      "name": "read strengths",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+      "inputs": {}
+  },{
+    "name": "push_strengths",
+    "x": 60,
+    "y": 300,
+    "label": {
+      "name": "push strengths",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+    "inputs": {}
+  },{
+    "name": "write",
+    "x": 200,
+    "y": 100,
+    "label": {
+      "name": "write",
+      "anchor": "center"
+    },
+    "op": "tf.name_scope",
+    "width": 60,
+    "height": 60,
+    "anchors": ["north", "west", "west", "east", "south"],
+    "inputs": {"0": "prev_write_strengths:0", "1": "previous_values:0", "2": "values:0"}
+  },{
+    "name": "shift",
+    "x": 320,
+    "y": 40,
+    "label": {
+      "name": "shift",
+      "anchor": "center"
+    },
+    "op": "tf.name_scope",
+    "width": 50,
+    "height": 30,
+    "anchors": ["west", "east"],
+    "inputs": {"0": "prev_write_strengths:0"}
+  },{
+    "name": "read",
+    "x": 200,
+    "y": 200,
+    "label": {
+      "name": "read",
+      "anchor": "center"
+    },
+    "op": "tf.name_scope",
+    "width": 60,
+    "height": 60,
+    "anchors": ["north", "west", "west", "west", "east", "south"],
+    "inputs": {"0": "write:4", "1": "pop_strengths:0", "2": "prev_read_strengths:0", "3": "push_strengths:0"}
+  },{
+    "name": "top",
+    "x": 320,
+    "y": 200,
+    "label": {
+      "name": "top",
+      "anchor": "center"
+    },
+    "op": "tf.name_scope",
+    "width": 50,
+    "height": 30,
+    "anchors": ["west", "east"],
+    "inputs": {"0": "read:4"}
+  },{
+    "name": "write_strengths",
+    "x": 440,
+    "y": 40,
+    "label": {
+      "name": "write strengths",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["west"],
+    "inputs": {"0": "shift:1"}
+  },{
+    "name": "next_values",
+    "x": 440,
+    "y": 100,
+    "label": {
+      "name": "memory values",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["west"],
+    "inputs": {"0": "write:3"}
+  },{
+    "name": "output",
+    "x": 440,
+    "y": 200,
+    "label": {
+      "name": "output",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["west"],
+    "inputs": {"0": "top:1"}
+  },{
+    "name": "read_strengths",
+    "x": 440,
+    "y": 250,
+    "label": {
+      "name": "read strengths",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["west"],
+    "inputs": {"0": "read:5"}
+  }]
+}
