@@ -6,7 +6,7 @@ var ICON_DATA = {
 
 export function defIcon (defs, op) {
   defs.append('path')
-    .attr('id', op.replace('.', '_') + '_icon')
+    .attr('id', op.replace(/\./g, '_') + '_icon')
     .attr('d', ICON_DATA[op])
     .style('fill', '#a6a6a6')
     .style('stroke-width', 0)
