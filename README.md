@@ -12,7 +12,7 @@ If you use NPM, `npm install d3-tensor-graph`. Otherwise, download the [latest r
 
 A simple example of rendering a graph:
 
-```
+```js
   d3.json('your-graph-data.json', function (data) {
   	var graph = d3.tensorGraph(d3.select('#graph1'), data['nodes'])
   }
