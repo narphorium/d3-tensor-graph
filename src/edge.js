@@ -130,14 +130,11 @@ export class Edge {
         var controlPoint = this.controlPoints[i]
         var controlNode = new DivisorNode(controlPoint.x, controlPoint.y)
         // TODO: Need to figure out how to get joint anchors for control points.
-        console.log(currentAnchor)
-        console.log(this.endAnchor)
         // var jointAnchors = this.getJointAnchors(currentAnchor, this.endAnchor, controlNode);
         var jointAnchors = [
           controlNode.getAnchor('3'),
           controlNode.getAnchor('1')
         ]
-        console.log(jointAnchors)
         data += this.edgePiece(currentAnchor, jointAnchors[0])
         currentAnchor = jointAnchors[1]
       }
