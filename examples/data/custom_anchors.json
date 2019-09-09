@@ -1,0 +1,158 @@
+{
+  "nodes": [{
+    "name": "container",
+    "x": 260,
+    "y": 140,
+    "op": "tf.name_scope",
+    "width": 240,
+    "height": 280,
+    "anchors": [],
+    "inputs": {}
+  },{
+    "name": "input_1",
+    "x": 60,
+    "y": 40,
+    "label": {
+      "name": "input 1",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+    "inputs": {}
+  },{
+    "name": "input_2",
+    "x": 60,
+    "y": 100,
+    "label": {
+      "name": "input 2",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+    "inputs": {}
+  },{
+    "name": "input_3",
+    "x": 60,
+    "y": 150,
+    "label": {
+      "name": "input 3",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+    "inputs": {}
+  },{
+    "name": "input_4",
+    "x": 60,
+    "y": 200,
+    "label": {
+      "name": "input 3",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+    "inputs": {}
+  },{
+    "name": "input_5",
+    "x": 60,
+    "y": 250,
+    "label": {
+      "name": "input 5",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["east"],
+      "inputs": {}
+  },{
+    "name": "inner",
+    "x": 260,
+    "y": 140,
+    "label": {
+      "name": "inner module",
+      "anchor": "center",
+      "orientation": "vertical"
+    },
+    "op": "tf.name_scope",
+    "width": 80,
+    "height": 240,
+    "anchors": [{
+        "x": "west",
+        "y": 40
+      },{
+        "x": "west",
+        "y": 100
+      },{
+        "x": "west",
+        "y": 150
+      },{
+        "x": "west",
+        "y": 200
+      },{
+        "x": "west",
+        "y": 250
+      },{
+        "x": "east",
+        "y": 40
+      },{
+        "x": "east",
+        "y": 100
+      },{
+        "x": "east",
+        "y": 200
+      },{
+        "x": "east",
+        "y": 250
+      }],
+    "inputs": {
+      "0": "input_1:0",
+      "1": "input_2:0",
+      "2": "input_3:0",
+      "3": "input_4:0",
+      "4": "input_5:0"
+    }
+  },{
+    "name": "output_1",
+    "x": 440,
+    "y": 40,
+    "label": {
+      "name": "output 1",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["west"],
+    "inputs": {"0": "inner:5"}
+  },{
+    "name": "output_2",
+    "x": 440,
+    "y": 100,
+    "label": {
+      "name": "output 2",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["west"],
+    "inputs": {"0": "inner:6"}
+  },{
+    "name": "output_3",
+    "x": 440,
+    "y": 200,
+    "label": {
+      "name": "output 3",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["west"],
+    "inputs": {"0": "inner:7"}
+  },{
+    "name": "output_4",
+    "x": 440,
+    "y": 250,
+    "label": {
+      "name": "output 4",
+      "anchor": "south"
+    },
+    "op": "tf.placeholder",
+    "anchors": ["west"],
+    "inputs": {"0": "inner:8"}
+  }]
+}

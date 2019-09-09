@@ -49,10 +49,16 @@ export class Node {
     this.description = description
   }
 
-  addAnchor (name, direction) {
+  addAnchor (name, config) {
     var h2 = this.height / 2
     var w2 = this.width / 2
     var anchor = null
+    var direction = config
+    if (config['x'] && typeof config['x'] === 'string') {
+      direction = config['x']
+    } else if (config['y'] && typeof config['y'] === 'string') {
+      direction = config['y']
+    }
     if (direction === 'center') {
       anchor = new Anchor(this, name, this.x, this.y, Anchor.CENTER)
     } else if (direction === 'north') {
@@ -63,6 +69,11 @@ export class Node {
       anchor = new Anchor(this, name, this.x - w2, this.y, Anchor.LEFT)
     } else if (direction === 'south') {
       anchor = new Anchor(this, name, this.x, this.y + h2, Anchor.DOWN)
+    }
+    if (config['x'] && typeof config['x'] !== 'string') {
+      anchor.x = config['x']
+    } else if (config['y'] && typeof config['y'] !== 'string') {
+      anchor.y = config['y']
     }
     if (anchor) {
       this.anchors[name] = anchor
@@ -80,9 +91,7 @@ export class Node {
   previousAnchor (anchor) {
     var l = this.anchorOrder.length
     var i = this.getAnchorIndex(anchor)
-    // console.log('i = ' + i);
     i = (i + l - 1) % l
-    // console.log('i = ' + i);
     return this.anchorOrder[i]
   }
 
@@ -94,10 +103,8 @@ export class Node {
 
   getClosestAnchor (targetAnchor) {
     var closestAnchor = null
-    // var closestDistance = 999999
     for (var key in this.anchors) {
       var anchor = this.anchors[key]
-      // console.log('(' + anchor.dx + ',' + anchor.dy + ') intersects (' + targetAnchor.dx + ',' + targetAnchor.dy + ') = ' + anchor.intersects(targetAnchor));
       if (anchor.intersects(targetAnchor)) {
         closestAnchor = anchor
       }
@@ -110,7 +117,6 @@ export class Node {
   }
 
   moveTo (x, y) {
-    // console.log('moveTo(' + x + ', ' + y + ')');
     for (var key in this.anchors) {
       var anchor = this.anchors[key]
       var dx = anchor.x - this.x
@@ -121,10 +127,11 @@ export class Node {
     this.y = y
   }
 
-  setLabel (text, anchor) {
+  setLabel (text, anchor, orientation) {
     if (typeof (anchor) === 'undefined') anchor = 'label'
     this.labelText = text
     this.labelAnchor = this.getAnchor(anchor)
+    this.labelOrientation = orientation
   }
 }
 

@@ -79,20 +79,37 @@ export class Graph {
       .attr('xlink:href', function (d) { return '#' + d.icon })
       .attr('transform', function (d) { return 'translate(' + (d.x - (d.width / 2)) + ', ' + (d.y - (d.height / 2)) + ')' })
 
+    // Draw text labels for nodes.
     this.nodeElements.filter(function (d, i) { return d.labelText })
       .append('text')
       .attr('class', 'd3-tensor-graph-node-label')
-      .attr('x', function (d) { return d.labelAnchor.x + (d.labelAnchor.dx * 8) })
-      .attr('y', function (d) {
+      .attr('transform', function (d) {
+        var x = d.labelAnchor.x
         var y = d.labelAnchor.y
-        if (d.labelAnchor.dy > 0) {
-          y += 16
-        } else if (d.labelAnchor.dy < 0) {
-          y -= 8
+        var rotation = 0
+        if (d.labelOrientation === 'vertical') {
+          rotation = -90
+          if (d.labelAnchor.dy > 0) {
+            x += 16
+          } else if (d.labelAnchor.dy < 0) {
+            x -= 8
+          } else {
+            x += 3
+          }
         } else {
-          y += 3
+          if (d.labelAnchor.dy > 0) {
+            y += 16
+          } else if (d.labelAnchor.dy < 0) {
+            y -= 8
+          } else {
+            y += 3
+          }
         }
-        return y
+        var transformation =  'translate(' + x + ', ' + y + ') '
+        if (rotation !== 0) {
+          transformation += 'rotate(' + rotation + ')'
+        }
+        return transformation
       })
       .attr('text-anchor', function (d) {
         if (d.labelAnchor.dx === 0) return 'middle'
@@ -135,7 +152,7 @@ export class Graph {
     }
     if ('label' in data) {
       node.addAnchor('label', data['label']['anchor'])
-      node.setLabel(data['label']['name'], 'label')
+      node.setLabel(data['label']['name'], 'label', data['label']['orientation'])
     }
     if ('op' in data) {
       node.op = data['op']
@@ -153,8 +170,6 @@ export class Graph {
 
   buildNodeEdges (nodeData) {
     var node = this.nodesByName[nodeData['name']]
-    // console.log('node:');
-    // console.log(node);
     for (var inputName in nodeData['inputs']) {
       var source = nodeData['inputs'][inputName]
       var startNodeName = source.split(':')[0]
@@ -171,8 +186,6 @@ export class Graph {
       if (endAnchor == null) {
         console.log('Unable to find end anchor: ' + inputName)
       }
-      // console.log('startNode:');
-      // console.log(startNode);
       var edge = new Edge(startAnchor, endAnchor)
       this.edges.push(edge)
     }
@@ -208,6 +221,7 @@ export class Graph {
       maxX = Math.max(maxX, edgeBB[1].x)
       maxY = Math.max(maxY, edgeBB[1].y)
     }
+    // TODO: Add label bounding boxes to overall bounding box.
     return [{ 'x': minX, 'y': minY }, { 'x': maxX, 'y': maxY }]
   }
 
