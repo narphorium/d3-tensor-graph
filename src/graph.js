@@ -46,6 +46,8 @@ export class Graph {
     this.arrowGlyph(defs)
     defIcon(defs, 'tf.split')
     defIcon(defs, 'tf.concat')
+    defIcon(defs, 'tf.tanh')
+    defIcon(defs, 'tf.sigmoid')
 
     this.nodeElements = svg.selectAll('g.d3-tensor-graph-node')
       .data(this.nodes)
@@ -105,7 +107,7 @@ export class Graph {
             y += 3
           }
         }
-        var transformation =  'translate(' + x + ', ' + y + ') '
+        var transformation = 'translate(' + x + ', ' + y + ') '
         if (rotation !== 0) {
           transformation += 'rotate(' + rotation + ')'
         }
@@ -176,15 +178,15 @@ export class Graph {
       var startAnchorName = source.split(':')[1]
       var startNode = this.nodesByName[startNodeName]
       if (startNode == null) {
-        console.log('Unable to find start node: ' + startNodeName)
+        console.error('Unable to find start node: ' + startNodeName)
       }
       var startAnchor = startNode.getAnchor(startAnchorName)
       if (startAnchor == null) {
-        console.log('Unable to find start anchor: ' + startAnchorName)
+        console.error('Unable to find start anchor: ' + startAnchorName)
       }
       var endAnchor = node.getAnchor(inputName)
       if (endAnchor == null) {
-        console.log('Unable to find end anchor: ' + inputName)
+        console.error('Unable to find end anchor: ' + inputName)
       }
       var edge = new Edge(startAnchor, endAnchor)
       this.edges.push(edge)
